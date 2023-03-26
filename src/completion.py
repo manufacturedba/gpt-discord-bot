@@ -7,6 +7,7 @@ from src.constants import (
     BOT_INSTRUCTIONS,
     BOT_NAME,
     EXAMPLE_CONVOS,
+    OPENAI_ENGINE,
 )
 import discord
 from src.base import Message, Prompt, Conversation
@@ -18,6 +19,7 @@ from src.moderation import (
 
 MY_BOT_NAME = BOT_NAME
 MY_BOT_EXAMPLE_CONVOS = EXAMPLE_CONVOS
+ENGINE = OPENAI_ENGINE or "text-davinci-003"
 
 
 class CompletionResult(Enum):
@@ -49,7 +51,7 @@ async def generate_completion_response(
         )
         rendered = prompt.render()
         response = openai.Completion.create(
-            engine="text-davinci-003",
+            engine=ENGINE,
             prompt=rendered,
             temperature=1.0,
             top_p=0.9,
